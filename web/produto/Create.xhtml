@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="ProdutoCreateDlg" widgetVar="ProdutoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateProdutoTitle}">
+            <h:form id="ProdutoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{produtoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateProdutoLabel_proid}" for="proid" />
+                        <p:inputText id="proid" value="#{produtoController.selected.proid}" title="#{bundle.CreateProdutoTitle_proid}" required="true" requiredMessage="#{bundle.CreateProdutoRequiredMessage_proid}"/>
+                        <p:outputLabel value="#{bundle.CreateProdutoLabel_pronome}" for="pronome" />
+                        <p:inputText id="pronome" value="#{produtoController.selected.pronome}" title="#{bundle.CreateProdutoTitle_pronome}" required="true" requiredMessage="#{bundle.CreateProdutoRequiredMessage_pronome}"/>
+                        <p:outputLabel value="#{bundle.CreateProdutoLabel_prodescricao}" for="prodescricao" />
+                        <p:inputText id="prodescricao" value="#{produtoController.selected.prodescricao}" title="#{bundle.CreateProdutoTitle_prodescricao}" />
+                        <p:outputLabel value="#{bundle.CreateProdutoLabel_propreco}" for="propreco" />
+                        <p:inputText id="propreco" value="#{produtoController.selected.propreco}" title="#{bundle.CreateProdutoTitle_propreco}" required="true" requiredMessage="#{bundle.CreateProdutoRequiredMessage_propreco}"/>
+                        <p:outputLabel value="#{bundle.CreateProdutoLabel_procatid}" for="procatid" />
+                        <p:selectOneMenu id="procatid" value="#{produtoController.selected.procatid}" >
+                            <f:selectItems value="#{categoriaController.itemsAvailableSelectOne}"
+                                           var="procatidItem"
+                                           itemValue="#{procatidItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{produtoController.create}" value="#{bundle.Save}" update="display,:ProdutoListForm:datalist,:growl" oncomplete="handleSubmit(args,'ProdutoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="ProdutoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
